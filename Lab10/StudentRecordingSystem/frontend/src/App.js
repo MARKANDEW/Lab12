@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import StudentForm from "./components/StudentForm";
+import StudentList from "./components/StudentList";
 
-function App() {
+
+const App = () => {
+  const [students, setStudents] = useState([]);
+
+
+  // Fetch students on page load
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/api/students");
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+
+  // Add student and update list
+  const addStudent = async (name, course) => {
+    try {
+      await axios.post("http://127.0.0.1:5000/api/students", { name, course });
+      fetchStudents(); // Refresh student list immediately
+    } catch (error) {
+      console.error("Error adding student:", error);
+    }
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Student Recording System</h1>
+      <StudentForm addStudent={addStudent} />
+      <StudentList students={students} />
     </div>
   );
-}
+};
+
 
 export default App;
