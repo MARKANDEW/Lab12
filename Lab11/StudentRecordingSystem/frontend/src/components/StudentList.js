@@ -1,6 +1,6 @@
 import React from "react";
 
-const StudentList = ({ students = [], deleteStudent }) => {
+const StudentList = ({ students, deleteStudent }) => {
   return (
     <div className="text-center">
       <h2>Student List</h2>
