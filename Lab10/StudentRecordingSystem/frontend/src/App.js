@@ -35,14 +35,26 @@ const App = () => {
   };
 
 
-  return (
-    <div>
-      <h1>Student Recording System</h1>
-      <StudentForm addStudent={addStudent} />
-      <StudentList students={students} />
-    </div>
-  );
-};
-
-
-export default App;
+  return ( 
+    <div 
+    style={{ 
+      position: 'absolute', 
+      top: '50%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', // Added to ensure children are centered within the div 
+      color: 'white', 
+    }} 
+  > 
+    <h1>Student Recording System</h1> 
+    <StudentForm addStudent={addStudent} /> 
+    <StudentList students={students} /> 
+  </div> 
+  ); 
+}; 
+ 
+export default App; 
+ 
