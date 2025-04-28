@@ -11,52 +11,43 @@ const App = () => {
   }, []);
 
   const fetchStudents = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/students");
-      setStudents(response.data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
+    const response = await axios.get("http://localhost:5000/api/students");
+    setStudents(response.data);
   };
 
   const addStudent = async (formData) => {
-    try {
-      await axios.post("http://localhost:5000/api/students", formData);
-      fetchStudents();
-    } catch (error) {
-      console.error("Error adding student:", error);
-    }
+    await axios.post("http://localhost:5000/api/students", formData);
+    fetchStudents();
   };
 
   const deleteStudent = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/students/${id}`);
-      fetchStudents();
-    } catch (error) {
-      console.error("Error deleting student:", error);
-    }
+    await axios.delete(`http://localhost:5000/api/students/${id}`);
+    fetchStudents();
   };
 
-  return ( 
-    <div 
-    style={{ 
-      position: 'absolute', 
-      top: '50%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center', // Added to ensure children are centered within the div 
-      color: 'white', 
-    }} 
-  > 
-    <h1>Student Recording System</h1> 
-    <StudentForm addStudent={addStudent} /> 
-    <StudentList students={students} /> 
-  </div> 
-  ); 
-}; 
- 
-export default App; 
- 
+  return (
+    <div>
+    <div
+      className="container text-center"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center', // Added to ensure children are centered within the div
+        color: 'white',
+      }}
+    >
+      <h1>Student Recording System</h1>
+      <StudentForm addStudent={addStudent} />
+      <StudentList students={students} deleteStudent={deleteStudent} />
+    </div>
+    </div>
+  );
+};
+
+export default App;
+
